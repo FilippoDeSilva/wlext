@@ -104,7 +104,7 @@ function MoviesPage() {
   }, []);
 
   return (
-    <main className="w-screen h-screen overflow-hidden bg-black">
+    <main className="w-screen h-screen overflow-hidden bg-black flex items-center justify-center">
       {showImage ? (
         <div className="flex items-center justify-center w-full h-full bg-black">
           <img
