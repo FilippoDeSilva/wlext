@@ -4,37 +4,19 @@ import { useEffect } from 'react';
 
 export default function ServiceWorkerRegistration() {
   useEffect(() => {
-    if ('serviceWorker' in navigator) {
-      // Use MutationObserver instead of deprecated events
-      const observer = new MutationObserver((mutations) => {
-        mutations.forEach((mutation) => {
-          if (mutation.type === 'childList') {
-            // Handle DOM changes
-          }
-        });
-      });
-
-      // Start observing
-      observer.observe(document.body, {
-        childList: true,
-        subtree: true,
-        characterData: true
-      });
-
-      // Register service worker
+    if (
+      typeof window !== 'undefined' && 
+      'serviceWorker' in navigator && 
+      process.env.NODE_ENV === 'production'
+    ) {
       navigator.serviceWorker
         .register('/sw.js')
         .then((registration) => {
-          console.log('Service Worker registered with scope:', registration.scope)
+          console.log('SW registered:', registration);
         })
         .catch((error) => {
-          console.error('Service Worker registration failed:', error)
+          console.error('SW registration failed:', error);
         });
-
-      // Cleanup
-      return () => {
-        observer.disconnect();
-      };
     }
   }, []);
 
