@@ -51,6 +51,7 @@ html, body {
 
 
 
+
 .fade-in-out {
   animation: fadeInOut 3s ease-in-out;
 }
@@ -69,4 +70,11 @@ html, body {
     opacity: 0;
   }
 }
+
+.flex {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
 
