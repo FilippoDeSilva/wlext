@@ -11,6 +11,8 @@
 # next.js
 /.next/
 /out/
+/build
+.next-cache
 
 # production
 /build
@@ -23,6 +25,7 @@
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
+.pnpm-debug.log*
 
 # local env files
 .env*.local
@@ -41,3 +44,29 @@ next-env.d.ts
 **/public/sw.js.map
 **/public/workbox-*.js.map
 **/public/worker-*.js.map
+**/public/fallback-*.js
+
+# IDE and Editor files
+.idea/
+.vscode/
+*.swp
+*.swo
+.DS_Store
+*.pem
+.history
+
+# Cache
+.cache/
+.temp/
+
+# Debug screenshots
+debug*.png
+debug-chrome.png
+
+# Misc
+*.log
+.DS_Store
+Thumbs.db
+
+# Turbo
+.turbo
