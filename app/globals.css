@@ -1,3 +1,4 @@
+/* Tailwind base imports */
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -8,51 +9,29 @@
   --background-end-rgb: 255, 255, 255;
 }
 
-/* Allow normal scrolling and layout */
+/* Ensure full black background */
 html, body {
   margin: 0;
   padding: 0;
   width: 100vw;
   height: 100vh;
+  background-color: black; /* Set background to black globally */
   overflow: hidden;
+  display: flex; /* Flexbox applied to center items globally */
+  align-items: center;
+  justify-content: center;
 }
 
-/* Keep scrollbars visible */
+* {
+  box-sizing: border-box;
+}
+
+/* Custom scrollbar visibility */
 ::-webkit-scrollbar {
   width: auto;
 }
 
-/* Reset any overflow restrictions */
-* {
-  scrollbar-width: auto;
-  -ms-overflow-style: auto;
-  box-sizing: border-box;
-}
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+/* Fade-in and fade-out animation */
 .fade-in-out {
   animation: fadeInOut 3s ease-in-out;
 }
@@ -71,12 +50,3 @@ html, body {
     opacity: 0;
   }
 }
-
-
-/* body, html {
-  margin: 0;
-  padding: 0;
-  width: 100%;
-  height: 100%;
-  background-color: black; 
-} */
