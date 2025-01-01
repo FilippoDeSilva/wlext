@@ -104,7 +104,7 @@ function MoviesPage() {
   }, []);
 
   return (
-    <main className="w-screen h-screen overflow-hidden">
+    <main className="w-screen h-screen overflow-hidden bg-black">
       {showImage ? (
         <div className="flex items-center justify-center w-full h-full bg-black">
           <img
@@ -112,8 +112,9 @@ function MoviesPage() {
             alt="WLEXT Logo"
             className="fade-in-out"
             style={{
-              maxWidth: "80%", // Ensures responsiveness on smaller screens
-              maxHeight: "80%", // Prevents overflow on narrow screens
+              maxWidth: "80%", // Scales for small screens
+              maxHeight: "80%", // Avoids overflow
+              objectFit: "contain", // Ensures proper scaling
             }}
           />
         </div>
