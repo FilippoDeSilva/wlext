@@ -5,8 +5,7 @@
   "packageManager": "npm@10.9.0",
   "scripts": {
     "dev": "next dev",
-    "build": "next build && npm run build:sw",
-    "build:sw": "node node_modules/next-pwa/build.js",
+    "build": "next build",
     "start": "next start",
     "lint": "next lint"
   },
