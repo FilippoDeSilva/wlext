@@ -1,23 +1,25 @@
-import withPWA from 'next-pwa';
-
-const config = withPWA({
-  dest: 'public',
-  register: true,
-  skipWaiting: true,
-  // disable: process.env.NODE_ENV === 'development',
-  runtimeCaching: [
-    {
-      urlPattern: /^https?.*/,
-      handler: 'NetworkFirst',
-      options: {
-        cacheName: 'offlineCache',
-        expiration: {
-          maxEntries: 200,
-          maxAgeSeconds: 24 * 60 * 60 // 24 hours
-        }
+/** @type {import('next').NextConfig} */
+const nextConfig = {
+  images: {
+    remotePatterns: [
+      {
+        protocol: 'https',
+        hostname: 'wlext.is',
+        port: '',
+        pathname: '/wp-content/uploads/**',
+      },
+      {
+        protocol: 'https',
+        hostname: '*.wlext.is',
+        port: '',
+        pathname: '/**',
       }
-    }
-  ]
-});
+    ],
+    unoptimized: true,
+    dangerouslyAllowSVG: true,
+  },
+  reactStrictMode: true,
 
-export default config;
+};
+
+module.exports = nextConfig;

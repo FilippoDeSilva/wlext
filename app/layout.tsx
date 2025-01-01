@@ -1,21 +1,10 @@
-import type { Metadata } from "next";
-import { Geist, Geist_Mono } from "next/font/google";
+import type { Metadata, Viewport } from "next";
 import "./globals.css";
 import InstallPWA from "./Components/InstallPWA";
 import ServiceWorkerRegistration from "./Components/ServiceWorkerRegistration";
 
-const geistSans = Geist({
-  variable: "--font-geist-sans",
-  subsets: ["latin"],
-});
-
-const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
-  subsets: ["latin"],
-});
-
 export const metadata: Metadata = {
-  title: "Wlext.is",
+  title: "Wlext",
   description: "Enjoy International movies from all over the world!",
   manifest: "/manifest.json",
   icons: {
@@ -23,8 +12,16 @@ export const metadata: Metadata = {
       { url: "https://wlext.is/wp-content/uploads/2016/08/cropped-63960-192x192.png", sizes: "192x192", type: "image/png" },
       { url: "https://wlext.is/wp-content/uploads/2016/08/cropped-63960-192x192.png", sizes: "512x512", type: "image/png" }
     ],
-  },
+  }
+};
+
+export const viewport: Viewport = {
   themeColor: "#000000",
+  width: 'device-width',
+  initialScale: 1,
+  maximumScale: 1,
+  userScalable: false,
+  viewportFit: 'cover'
 };
 
 export default function RootLayout({
@@ -33,13 +30,8 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
-      <head>
-        <link rel="manifest" href="/manifest.json" />
-        <meta name="theme-color" content="#000000" />
-        <link rel="apple-touch-icon" href="https://wlext.is/wp-content/uploads/2016/08/cropped-63960-192x192.png" />
-      </head>
-      <body className={`${geistSans.variable} ${geistMono.variable} antialiased`}>
+    <html lang="en" className="overflow-hidden">
+      <body className='antialiased m-0 p-0 overflow-hidden'>
         {children}
         <ServiceWorkerRegistration />
         <InstallPWA />

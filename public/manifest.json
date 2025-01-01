@@ -3,7 +3,9 @@
   "short_name": "Wlext",
   "description": "Enjoy International movies from all over the world!",
   "start_url": "/",
-  "display": "standalone",
+  "display": "fullscreen",
+  "orientation": "any",
+  "scope": "/",
   "background_color": "#ffffff",
   "theme_color": "#000000",
   "icons": [
@@ -19,9 +21,9 @@
       "type": "image/png"
     },
     {
-        "src": "https://wlext.is/wp-content/uploads/2016/08/cropped-63960-32x32.png",
-        "sizes":"32x32",
-        "type":"image/png"
+      "src": "https://wlext.is/wp-content/uploads/2016/08/cropped-63960-32x32.png",
+      "sizes": "32x32",
+      "type": "image/png"
     },
     {
       "src": "https://wlext.is/wp-content/uploads/2016/08/cropped-63960-192x192.png",
