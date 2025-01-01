@@ -106,12 +106,15 @@ function MoviesPage() {
   return (
     <main className="w-screen h-screen overflow-hidden">
       {showImage ? (
-        <div className="w-full h-full flex items-center justify-center bg-black">
+        <div className="flex items-center justify-center w-full h-full bg-black">
           <img
             src="https://wlext.is/wp-content/uploads/2018/07/WLEXT-LOGO-NO-PIC.png"
             alt="WLEXT Logo"
             className="fade-in-out"
-            style={{ width: "300px", height: "auto" }}
+            style={{
+              maxWidth: "80%", // Ensures responsiveness on smaller screens
+              maxHeight: "80%", // Prevents overflow on narrow screens
+            }}
           />
         </div>
       ) : (
