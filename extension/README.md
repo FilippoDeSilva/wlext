@@ -1,57 +1,52 @@
-# WLEXT Ad Blocker Browser Extension
+# WLEXT Ad Blocker (Lockdown Edition)
 
-A powerful browser extension specifically designed to block ads, pop-ups, and redirects on WLEXT and similar streaming sites.
+An advanced, Manifest V3 compliant browser extension specifically designed to provide absolute protection for WLEXT and similar streaming sites.
 
-## Features
+## Key Features (Lockdown Mode)
 
-- **Advanced Redirect Blocking**: Prevents malicious redirects and pop-unders
-- **Real-time Pattern Learning**: Dynamically learns and blocks new ad domains
-- **Script Injection Protection**: Blocks malicious scripts before they execute
-- **Navigation Hijack Prevention**: Stops attempts to hijack browser navigation
-- **Service Worker Protection**: Network-level blocking of ad requests
-- **Statistics Tracking**: Monitor blocked ads, redirects, and scripts
-- **Whitelist Management**: Allow specific domains if needed
+- **Whitelist-Only Policy**: The "Ultimate Shield" approach. Instead of blocking known bad domains, it blocks **everything by default** and only allows trusted streaming sources.
+- **Network-Level Blocking (DNR)**: Uses Chrome's `declarativeNetRequest` to kill ad requests before they even reach the browser's engine.
+- **Early Navigation Interception**: Uses `webNavigation` to catch and neutralize redirects in Microsoft Edge and Chrome before the page can even start loading.
+- **Deep Page Protection**: 
+    - **Location Proxying**: Prevents scripts from hijacking the browser URL.
+    - **API Hardening**: Overrides `eval`, `Function`, and `window.open` to neutralize obfuscated ad code.
+    - **Event Interception**: Blocks click-hijack listeners that trigger popups.
+- **Real-time Statistics**: Live tracking of blocked ads, redirects, and scripts.
+- **Modern UI**: Clean popup interface with toggle controls and live data.
 
 ## Installation
 
 ### Chrome/Edge:
-1. Open `chrome://extensions/`
-2. Enable "Developer mode"
-3. Click "Load unpacked"
-4. Select the `extension` folder
+1. Open `chrome://extensions/` (Chrome) or `edge://extensions/` (Edge).
+2. Enable **"Developer mode"**.
+3. Click **"Load unpacked"**.
+4. Select the `extension` folder from this repository.
+5. **Crucial**: After installing, click the extension icon and ensure it's active.
 
-### Firefox:
-1. Open `about:debugging`
-2. Click "This Firefox"
-3. Click "Load Temporary Add-on"
-4. Select the `manifest.json` file
+### Why this extension?
+Most ad-blockers fail on streaming sites because ad networks rotate domains every few hours. This extension solves that by **locking down the browser** to only trust the specific domains needed for WLEXT to function. Anything else is completely obliterated.
 
-## Files Structure
+## Whitelisted Domains
+- `wlext.is`, `wlext.net` (Main sites)
+- `sobox.top`, `soapbox`, `hydra`, `omma`, `shorticu` (Video players)
+- `cdn.jsdelivr.net`, `cloudflare`, `google`, `gstatic` (Essential CDNs)
+- `abysscdn`, `elitecloud` (Legitimate streaming mirrors)
+- `localhost` (Development)
+
+## File Structure
 
 ```
 extension/
-├── manifest.json       # Extension configuration
-├── background.js       # Service worker for network blocking
-├── content.js          # Content script for DOM protection
-├── injected.js         # Advanced protection in page context
+├── manifest.json       # Extension Manifest V3 configuration with DNR and Navigation permissions.
+├── background.js       # Service worker for network rules, blocking and navigation interception.
+├── content.js          # Content script for DOM manipulation and protection (Enforces whitelist).
+├── injected.js         # Advanced page-context API overrides and recursive proxies.
 ├── popup.html          # Extension popup interface
 ├── popup.js            # Popup functionality
 ├── icons/              # Extension icons (add your own)
 └── README.md           # This file
 ```
-
 ## Configuration
-
-### Adding Custom Blocked Domains
-Edit `background.js` and add domains to the `BLOCKED_DOMAINS` array:
-
-```javascript
-const BLOCKED_DOMAINS = [
-  'example-ad-domain.com',
-  'another-ad-site.net',
-  // ... existing domains
-];
-```
 
 ### Whitelisting Domains
 Use the popup interface or edit the storage directly:
