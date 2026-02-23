@@ -1,7 +1,5 @@
 /* Tailwind base imports */
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+@import "tailwindcss";
 
 :root {
   --foreground-rgb: 0, 0, 0;
@@ -17,9 +15,33 @@ html, body {
   height: 100vh;
   background-color: black; /* Set background to black globally */
   overflow: hidden;
-  display: flex; /* Flexbox applied to center items globally */
-  align-items: center;
+}
+
+/* Base styles for PWA modal to ensure visibility without Tailwind */
+#pwa-install-prompt {
+  all: unset;
+  position: fixed;
+  z-index: 9999;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  display: flex;
   justify-content: center;
+  padding: 16px;
+  pointer-events: none;
+}
+
+#pwa-install-prompt > div {
+  pointer-events: auto;
+}
+
+@media (min-width: 768px) {
+  #pwa-install-prompt {
+    left: auto;
+    right: 16px;
+    bottom: 16px;
+    width: 400px;
+  }
 }
 
 * {

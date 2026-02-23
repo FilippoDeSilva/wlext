@@ -30,10 +30,11 @@ export default function InstallPWA() {
     }
 
     // Store the beforeinstallprompt event for later use
-    const handleBeforeInstallPrompt = (e: Event) => {
+    const handleBeforeInstallPrompt = (e: any) => {
       e.preventDefault();
       deferredPromptRef.current = e;
       setShowPrompt(true);
+      console.log('beforeinstallprompt event captured');
     };
 
     window.addEventListener('beforeinstallprompt', handleBeforeInstallPrompt);
@@ -72,13 +73,21 @@ export default function InstallPWA() {
 
   const handleInstall = async () => {
     if (deferredPromptRef.current) {
-      await deferredPromptRef.current.prompt();
-      const { outcome } = await deferredPromptRef.current.userChoice;
-      if (outcome === 'accepted') {
-        setShowPrompt(false);
-        setIsInstalled(true);
+      try {
+        await deferredPromptRef.current.prompt();
+        const { outcome } = await deferredPromptRef.current.userChoice;
+        if (outcome === 'accepted') {
+          setShowPrompt(false);
+          setIsInstalled(true);
+        }
+        deferredPromptRef.current = null;
+      } catch (err) {
+        console.error('PWA Installation failed:', err);
       }
-      deferredPromptRef.current = null;
+    } else {
+      // Fallback for browsers that don't support beforeinstallprompt or if event was missed
+      console.log('No deferred prompt available');
+      // Some browsers allow adding to home screen via menu even if prompt is not triggered
     }
   };
 
@@ -88,44 +97,55 @@ export default function InstallPWA() {
 
   return (
     <div
-      className="fixed bottom-4 right-4 z-50 bg-white rounded-lg shadow-xl p-6 max-w-xs border border-gray-200 animate-slide-up"
-      style={{
-        boxShadow: '0 4px 6px rgba(0, 0, 0, 0.1)',
-      }}
+      id="pwa-install-prompt"
+      className="fixed z-[9999] p-4 md:p-6 transition-all duration-500 ease-in-out
+                 bottom-0 left-0 right-0 md:left-auto md:right-4 md:bottom-4
+                 flex justify-center md:block"
     >
-      <div className="flex items-start justify-between">
-        <div className="flex items-start space-x-4">
-          <div className="bg-blue-100 p-3 rounded-full">
-            <IoDownloadOutline className="text-blue-600 text-2xl" />
+      <div 
+        className="w-full max-w-[400px] bg-[#111827] border border-gray-800 
+                   rounded-2xl shadow-2xl p-5 md:p-6 animate-in duration-500"
+        style={{ backgroundColor: '#111827', borderColor: '#1f2937' }}
+      >
+        <div className="flex items-start justify-between gap-4">
+          <div className="flex items-start space-x-4">
+            <div className="bg-blue-500/10 p-3 rounded-xl border border-blue-500/20">
+              <IoDownloadOutline className="text-blue-400 text-2xl" />
+            </div>
+            <div className="flex-1">
+              <h3 className="font-bold text-white text-lg leading-tight">Install Wlext App</h3>
+              <p className="text-sm text-gray-400 mt-1.5 leading-relaxed">
+                Experience Wlext with offline access, faster loading, and a seamless native experience.
+              </p>
+            </div>
           </div>
-          <div>
-            <h3 className="font-semibold text-gray-900 text-lg">Install Wlext</h3>
-            <p className="text-sm text-gray-600 mt-2">
-              Install our app for a faster, enhanced experience with offline capabilities.
-            </p>
-          </div>
+          <button
+            onClick={() => setShowPrompt(false)}
+            className="text-gray-500 hover:text-white transition-colors p-1 rounded-lg hover:bg-white/5 cursor-pointer"
+            aria-label="Close"
+          >
+            <IoClose className="text-xl" />
+          </button>
         </div>
-        <button
-          onClick={() => setShowPrompt(false)}
-          className="text-gray-400 hover:text-gray-500 transition-colors p-1"
-          aria-label="Close"
-        >
-          <IoClose className="text-xl" />
-        </button>
-      </div>
-      <div className="mt-6 flex space-x-3">
-        <button
-          onClick={handleInstall}
-          className="flex-1 bg-blue-600 text-white px-6 py-2.5 rounded-md hover:bg-blue-700 transition-colors duration-200 text-sm font-medium focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2"
-        >
-          Install Now
-        </button>
-        <button
-          onClick={() => setShowPrompt(false)}
-          className="flex-1 bg-gray-100 text-gray-700 px-6 py-2.5 rounded-md hover:bg-gray-200 transition-colors duration-200 text-sm font-medium focus:outline-none focus:ring-2 focus:ring-gray-500 focus:ring-offset-2"
-        >
-          Maybe Later
-        </button>
+        
+        <div className="mt-6 flex flex-col sm:flex-row gap-3">
+          <button
+            onClick={handleInstall}
+            className="flex-1 bg-blue-600 text-white px-6 py-3 rounded-xl 
+                       hover:bg-blue-500 active:scale-[0.98] transition-all 
+                       text-sm font-semibold shadow-lg shadow-blue-600/20 cursor-pointer"
+          >
+            Install Now
+          </button>
+          <button
+            onClick={() => setShowPrompt(false)}
+            className="flex-1 bg-white/5 text-gray-300 px-6 py-3 rounded-xl 
+                       hover:bg-white/10 hover:text-white transition-all 
+                       text-sm font-semibold border border-white/5 cursor-pointer"
+          >
+            Maybe Later
+          </button>
+        </div>
       </div>
     </div>
   );
