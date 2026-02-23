@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <style>
+        body {
+            width: 300px;
+            padding: 20px;
+            font-family: Arial, sans-serif;
+            background: #1a1a1a;
+            color: #fff;
+            margin: 0;
+        }
+        .header {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        .status {
+            padding: 10px;
+            border-radius: 5px;
+            margin-bottom: 15px;
+            text-align: center;
+        }
+        .active {
+            background: #4CAF50;
+        }
+        .blocked {
+            background: #f44336;
+        }
+        .stats {
+            background: #333;
+            padding: 15px;
+            border-radius: 5px;
+            margin-bottom: 15px;
+        }
+        .stat-item {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 8px;
+        }
+        button {
+            width: 100%;
+            padding: 10px;
+            background: #2196F3;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            margin-bottom: 10px;
+        }
+        button:hover {
+            background: #1976D2;
+        }
+        .toggle {
+            background: #FF9800;
+        }
+        .toggle:hover {
+            background: #F57C00;
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <h2>WLEXT Ad Blocker</h2>
+    </div>
+    
+    <div id="status" class="status active">
+        Protection Active
+    </div>
+    
+    <div class="stats">
+        <div class="stat-item">
+            <span>Ads Blocked:</span>
+            <span id="blockedCount">0</span>
+        </div>
+        <div class="stat-item">
+            <span>Redirects Stopped:</span>
+            <span id="redirectCount">0</span>
+        </div>
+        <div class="stat-item">
+            <span>Scripts Blocked:</span>
+            <span id="scriptCount">0</span>
+        </div>
+    </div>
+    
+    <button id="toggleProtection" class="toggle">
+        Disable Protection
+    </button>
+    
+    <button id="clearStats">
+        Clear Statistics
+    </button>
+    
+    <button id="whitelist">
+        Manage Whitelist
+    </button>
+    
+    <script src="popup.js"></script>
+</body>
+</html>

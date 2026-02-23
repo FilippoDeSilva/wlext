@@ -54,7 +54,7 @@ function MoviesPage() {
               allowFullScreen
             />
           ) : (
-            // Non-Chromium browsers with sandbox
+            // Non-Chromium browsers (Sandbox removed to satisfy player checks)
             <iframe
               src="https://wlext.is"
               className="w-full h-full"
@@ -65,7 +65,6 @@ function MoviesPage() {
                 width: "100vw",
                 height: "100vh",
               }}
-              sandbox="allow-same-origin allow-scripts"
               allow="fullscreen; encrypted-media; picture-in-picture"
               allowFullScreen
             />

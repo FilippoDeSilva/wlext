@@ -1,14 +1,13 @@
-/** @type {import('next').NextConfig} */
-const withPWA = require('next-pwa')({
-  dest: 'public',
+const withPWA = require("@ducanh2912/next-pwa").default({
+  dest: "public",
   register: true,
   skipWaiting: true,
-  disable: process.env.NODE_ENV === 'development'
+  disable: process.env.NODE_ENV === "development",
 });
 
+/** @type {import('next').NextConfig} */
 const nextConfig = {
   images: {
-    domains: ['wlext.is'],
     remotePatterns: [
       {
         protocol: 'https',
@@ -27,8 +26,19 @@ const nextConfig = {
   reactStrictMode: true,
   poweredByHeader: false,
   compress: true,
+  turbopack: {},
   headers: async () => {
     return [
+      {
+        source: '/(.*)',
+        headers: [
+          {
+            key: 'Content-Security-Policy',
+            // We explicitly OMIT the 'sandbox' directive here to ensure players work
+            value: "frame-ancestors 'self' https://wlext.is https://*.wlext.is;",
+          },
+        ],
+      },
       {
         source: '/sw.js',
         headers: [
